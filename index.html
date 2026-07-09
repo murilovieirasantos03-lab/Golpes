@@ -9,10 +9,12 @@
 </head>
 <body>
 
-    <!-- INTRODUÇÃO (O topo agora começa direto aqui) -->
+    <!-- INTRODUÇÃO -->
     <section class="hero">
         <h1>Proteja Seus Dados contra <span>Golpes Online</span></h1>
-        <p>Aprenda a identificar links maliciosos que violam a sua privacidade e entenda como a LGPD garante a proteção das suas informações pessoais na internet.</p>
+        <p id="texto-hero">Aprenda a identificar links maliciosos que violam a sua privacidade e entenda como a LGPD garante a proteção das suas informações pessoais na internet.</p>
+        <!-- BOTÃO DA INTRODUÇÃO -->
+        <button class="btn-ouvir" onclick="falarTexto('texto-hero')">🔊 Ouvir Introdução</button>
     </section>
 
     <!-- ANÁLISE DOS GOLPES -->
@@ -21,7 +23,7 @@
         
         <div class="grid-golpes">
             <!-- EXEMPLO 1 (Correios) -->
-            <article class="card-golpe card-alerta">
+            <article class="card-golpe card-alerta" id="card-1">
                 <div class="container-imagem" id="espaco-imagem-1">
                     <!-- Inserido dinamicamente via JS -->
                 </div>
@@ -29,6 +31,8 @@
                     <span class="badge">Exemplo 1</span>
                     <h3 id="titulo-golpe-1">Carregando análise...</h3>
                     <p id="desc-golpe-1"></p>
+                    <!-- BOTÃO DO GOLPE 1 -->
+                    <button class="btn-ouvir" onclick="falarSection('card-1')">🔊 Ouvir Análise 1</button>
                     <ul class="lista-perigos" id="perigos-golpe-1">
                         <!-- Inserido dinamicamente via JS -->
                     </ul>
@@ -36,7 +40,7 @@
             </article>
 
             <!-- EXEMPLO 2 (WhatsApp) -->
-            <article class="card-golpe">
+            <article class="card-golpe" id="card-2">
                 <div class="container-imagem" id="espaco-imagem-2">
                     <!-- Inserido dinamicamente via JS -->
                 </div>
@@ -44,6 +48,8 @@
                     <span class="badge">Exemplo 2</span>
                     <h3 id="titulo-golpe-2">Carregando análise...</h3>
                     <p id="desc-golpe-2"></p>
+                    <!-- BOTÃO DO GOLPE 2 -->
+                    <button class="btn-ouvir" onclick="falarSection('card-2')">🔊 Ouvir Análise 2</button>
                     <ul class="lista-perigos" id="perigos-golpe-2">
                         <!-- Inserido dinamicamente via JS -->
                     </ul>
@@ -53,13 +59,17 @@
     </section>
 
     <!-- SEÇÃO LGPD -->
-    <section class="lgpd-section">
+    <section class="lgpd-section" id="secao-lgpd">
         <div class="lgpd-container">
             <div class="lgpd-texto">
                 <h2>O que a <span>LGPD</span> diz sobre isso?</h2>
                 <p>A Lei Geral de Proteção de Dados (LGPD) determina que nenhuma empresa ou indivíduo pode coletar, armazenar ou utilizar seus dados pessoais (como CPF, nome e telefone) sem o seu consentimento explícito ou uma base legal válida.</p>
                 <p>Links de golpes usam engenharia social para fazer você entregar esses dados por livre e espontânea vontade, burlando sistemas de segurança legais.</p>
-                <button class="btn-interativo" id="btnDica">Ver Dica de Proteção</button>
+                <div style="margin-bottom: 15px;">
+                    <button class="btn-interativo" id="btnDica">Ver Dica de Proteção</button>
+                    <!-- BOTÃO DA LGPD -->
+                    <button class="btn-ouvir" onclick="falarSection('secao-lgpd')">🔊 Ouvir Texto</button>
+                </div>
             </div>
         </div>
     </section>
