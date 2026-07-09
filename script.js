@@ -65,3 +65,46 @@ listaPerigos2.innerHTML = `
         A LGPD assegura a inviolabilidade dos seus dados pessoais e comunicações privadas. Ao clicar nesse link e instalar o arquivo falso, o usuário concede controle do aplicativo aos criminosos. Isso resulta no sequestro da conta do WhatsApp, permitindo que os golpistas se passem pela vítima para pedir dinheiro a familiares e roubar contatos de sua agenda.
     </li>
 `;
+
+// =========================================================================
+// --- SISTEMA NATIVO DE SÍNTESE DE VOZ (TEXT-TO-SPEECH) ---
+// =========================================================================
+
+function falarTexto(idElemento) {
+    // Para qualquer áudio anterior se o usuário clicar em outro botão
+    window.speechSynthesis.cancel();
+
+    const elemento = document.getElementById(idElemento);
+    if (!elemento) return;
+
+    // Pega apenas o texto limpo do elemento
+    const textoParaLer = elemento.innerText;
+
+    const utterance = new SpeechSynthesisUtterance(textoParaLer);
+    utterance.lang = 'pt-BR'; // Força o idioma em português brasileiro
+    utterance.rate = 1.1;     // Velocidade levemente ajustada para leitura fluída
+    utterance.pitch = 1.0;    // Tom de voz normal
+
+    window.speechSynthesis.speak(utterance);
+}
+
+function falarSection(idConteiner) {
+    window.speechSynthesis.cancel();
+
+    const conteiner = document.getElementById(idConteiner);
+    if (!conteiner) return;
+
+    // Clona o elemento na memória para limpar os textos dos botões antes de ler
+    const clone = conteiner.cloneNode(true);
+    const botoes = clone.querySelectorAll('.btn-ouvir, .btn-interativo');
+    botoes.forEach(btn => btn.remove()); // Remove os botões da leitura para o robô não falar "Botão ouvir análise"
+
+    const textoParaLer = clone.innerText;
+
+    const utterance = new SpeechSynthesisUtterance(textoParaLer);
+    utterance.lang = 'pt-BR';
+    utterance.rate = 1.1;
+
+    window.speechSynthesis.speak(utterance);
+}
+
