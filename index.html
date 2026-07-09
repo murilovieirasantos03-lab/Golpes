@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
+    <!-- BARRA DE CONTROLE DE ÁUDIO FLUTUANTE -->
+<div id="player-voz" style="display: none;">
+    <span id="player-status">🗣️ Lendo texto...</span>
+    <div class="player-botoes">
+        <button id="btn-pausar-retomar" onclick="alternarPausa()">⏸️ Pausar</button>
+        <button onclick="pararAudio()">⏹️ Parar</button>
+    </div>
+</div>
+
 
     <!-- INTRODUÇÃO -->
     <section class="hero">
