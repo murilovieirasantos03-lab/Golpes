@@ -153,6 +153,67 @@ c
     margin-bottom: 1.2rem;
     text-transform: uppercase;
 }
+/* Estilização da Barra Flutuante de Voz */
+#player-voz {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #222;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: 1px solid #444;
+}
+
+.player-botoes {
+    display: flex;
+    gap: 8px;
+}
+
+#player-voz button {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.2s, transform 0.1s;
+}
+
+#player-voz button:hover {
+    background-color: #555;
+}
+
+#player-voz button:active {
+    transform: scale(0.95);
+}
+
+/* Mantém o estilo básico dos botões originais da página */
+.btn-ouvir {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px 0 15px 0;
+    transition: background 0.2s;
+}
+
+.btn-ouvir:hover {
+    background-color: #e0e0e0;
+}
+
 
 .badge-espera {
     background-color: rgba(148, 163, 184, 0.1);
