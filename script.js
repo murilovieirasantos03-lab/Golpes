@@ -67,44 +67,81 @@ listaPerigos2.innerHTML = `
 `;
 
 // =========================================================================
-// --- SISTEMA NATIVO DE SÍNTESE DE VOZ (TEXT-TO-SPEECH) ---
+// --- SISTEMA NATIVO DE SÍNTESE DE VOZ COM CONTROLES (PLAY/PAUSE/STOP) ---
 // =========================================================================
 
-function falarTexto(idElemento) {
-    // Para qualquer áudio anterior se o usuário clicar em outro botão
+const playerVoz = document.getElementById('player-voz');
+const playerStatus = document.getElementById('player-status');
+const btnPausarRetomar = document.getElementById('btn-pausar-retomar');
+
+// Função auxiliar para configurar e disparar a fala
+function dispararVoz(texto) {
+    // Cancela qualquer fala anterior em execução
     window.speechSynthesis.cancel();
 
-    const elemento = document.getElementById(idElemento);
-    if (!elemento) return;
+    if (!texto.trim()) return;
 
-    // Pega apenas o texto limpo do elemento
-    const textoParaLer = elemento.innerText;
-
-    const utterance = new SpeechSynthesisUtterance(textoParaLer);
-    utterance.lang = 'pt-BR'; // Força o idioma em português brasileiro
-    utterance.rate = 1.1;     // Velocidade levemente ajustada para leitura fluída
-    utterance.pitch = 1.0;    // Tom de voz normal
-
-    window.speechSynthesis.speak(utterance);
-}
-
-function falarSection(idConteiner) {
-    window.speechSynthesis.cancel();
-
-    const conteiner = document.getElementById(idConteiner);
-    if (!conteiner) return;
-
-    // Clona o elemento na memória para limpar os textos dos botões antes de ler
-    const clone = conteiner.cloneNode(true);
-    const botoes = clone.querySelectorAll('.btn-ouvir, .btn-interativo');
-    botoes.forEach(btn => btn.remove()); // Remove os botões da leitura para o robô não falar "Botão ouvir análise"
-
-    const textoParaLer = clone.innerText;
-
-    const utterance = new SpeechSynthesisUtterance(textoParaLer);
+    const utterance = new SpeechSynthesisUtterance(texto);
     utterance.lang = 'pt-BR';
     utterance.rate = 1.1;
 
+    // Quando o robô começar a falar, exibe o player e reseta os botões
+    utterance.onstart = () => {
+        playerVoz.style.display = 'flex';
+        playerStatus.innerText = '🗣️ Lendo texto...';
+        btnPausarRetomar.innerText = '⏸️ Pausar';
+    };
+
+    // Quando o robô terminar de falar naturalmente, esconde o player
+    utterance.onend = () => {
+        playerVoz.style.display = 'none';
+    };
+
+    // Se ocorrer algum erro, garante que o painel feche
+    utterance.onerror = () => {
+        playerVoz.style.display = 'none';
+    };
+
     window.speechSynthesis.speak(utterance);
 }
 
+// Dispara a leitura de um elemento simples pelo ID
+function falarTexto(idElemento) {
+    const elemento = document.getElementById(idElemento);
+    if (elemento) {
+        dispararVoz(elemento.innerText);
+    }
+}
+
+// Dispara a leitura de uma seção inteira, limpando os botões internos
+function falarSection(idConteiner) {
+    const conteiner = document.getElementById(idConteiner);
+    if (!conteiner) return;
+
+    const clone = conteiner.cloneNode(true);
+    const botoesParaRemover = clone.querySelectorAll('.btn-ouvir, .btn-interativo');
+    botoesParaRemover.forEach(btn => btn.remove());
+
+    dispararVoz(clone.innerText);
+}
+
+// Controla a pausa e a retomada do áudio
+function alternarPausa() {
+    if (window.speechSynthesis.speaking) {
+        if (window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+            playerStatus.innerText = '🗣️ Lendo texto...';
+            btnPausarRetomar.innerText = '⏸️ Pausar';
+        } else {
+            window.speechSynthesis.pause();
+            playerStatus.innerText = '⏸️ Leitura pausada';
+            btnPausarRetomar.innerText = '▶️ Retomar';
+        }
+    }
+}
+
+// Para completamente o áudio e esconde a barra
+function pararAudio() {
+    window.speechSynthesis.cancel();
+    playerVoz.style.display = 'none';
+}
